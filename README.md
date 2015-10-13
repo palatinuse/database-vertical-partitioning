@@ -14,7 +14,7 @@ We implemented the following 6 + 1 vertical partitioning algorithms in Java:
 6. **Trojan Layouts** [A.Jindal, J.-A. Quianeé-Ruiz, and J.Dittrich. Trojan Data Layouts: Right Shoes for a Running Elephant. In ACM - SOCC, pages 21:1–21:14, 2011.]
 7. **Brute Force**
 
-Read about our findings for legacy row-store database systems in our VLDB'13 paper [Jindal, A., Palatinus, E., Pavlov, V., & Dittrich, J. (2013). A comparison of knives for bread slicing. Proceedings of the VLDB Endowment, 6(6), 361-372.](http://www.vldb.org/pvldb/vol6/p361-jindal.pdf)
+Read about our findings for legacy row-store database systems in our VLDB'13 paper: [Jindal, A., Palatinus, E., Pavlov, V., & Dittrich, J. (2013). A comparison of knives for bread slicing. Proceedings of the VLDB Endowment, 6(6), 361-372.](http://www.vldb.org/pvldb/vol6/p361-jindal.pdf)
 
 
 ## A short walk-through of a sample vertical partitioning
