@@ -17,7 +17,7 @@ We implemented the following 6 + 1 vertical partitioning algorithms in Java:
 Read about our findings for legacy row-store database systems in our VLDB'13 paper: [Jindal, A., Palatinus, E., Pavlov, V., & Dittrich, J. (2013). A comparison of knives for bread slicing. Proceedings of the VLDB Endowment, 6(6), 361-372.](http://www.vldb.org/pvldb/vol6/p361-jindal.pdf)
 
 
-## A short walk-through of a sample vertical partitioning
+## A short walk-through of vertical partitioning the TPC-H PartSupp table
 
 Let's take a look at the TPC-H PartSupp table's workload, and it's vertical partitioning.  The table shows the following informations: which query references which attribute, marked by an X.
 
