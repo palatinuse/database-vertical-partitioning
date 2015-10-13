@@ -1,5 +1,10 @@
 # Vertical partitioning algorithms used in physical design of databases
 
+##### Table of Contents
+1. [Introduction](#introduction)
+2. [A short walk-through of vertical partitioning the TPC-H PartSupp table](#a-short-walk-through-of-vertical-partitioning-the-tpc-h-partsupp-table)
+3. [Getting started](#getting-started)
+
 ## Introduction
 
 Vertical partitioning is a crucial step in physical database design, mainly used in disk-based row-store database systems. A number of vertical partitioning algorithms have been proposed over the last three decades for a variety of niche scenarios. In principle, the underlying problem remains the same: decompose a table into one or more vertical partitions, i.e. find a complete and (disjunct) partitioning of the set of attributes of a table such that it is optimal with respect to a cost function.
@@ -47,3 +52,10 @@ partsupp
 We get two mappings as a result. _Partitions_ is the result of a VP algo: the list of partitions with the attributes in them. Thus the first line (1 0) means Partition 0 contains attributes 1 and 0 (marked green in the figure).
 
 The second mapping, _best solutions_ is a bit more tricky. If we have a vertically partitioned table, and a query comes in, we have to decide which vertical partitions we should scan to answer the query. This itself is an NP-hard problem when partial attribute replication is allowed, like in the AUTOPART algorithm (Note: these algos are called `AbstractPartitionsAlgorithm` in the code, in contrast to `AbstractPartitioningAlgorithm`s that create a disjunct set of partitions, i.e. without overlaps). The best solutions tells us for each query which partitions to scan, in order to answer the query WITH THE LOWEST COST, according to the cost model used (_Note_: this is only non-trivial for overlapping (non-disjunct) partitionings). Thus the first line (2 0) means query 0 (which is TPC-H Q2) needs to scan partitions 2 and 0 (the red and green columns in the figure).
+
+## Getting started
+
+* Build metis (under lib/metis) on your machine
+* Create a new instance of `experiments.AlgorthmRunner` using its default constructor setting up to run all VP algorithms, the whole TPC-H benchmark using scale factor 10, and using an HDD cost model.
+* Call the `experiments.AlgorthmRunner.runTPC_H_Tables()` method to get the vertical partitionings of all TPC-H tables, for each VP algorithm.
+* Print the resulting partitionings calling the `experiments.AlgorithmResults.exportResults()` method, passing in the results attribute of the `experiments.AlgorthmRunner` instance.
