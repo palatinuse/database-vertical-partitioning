@@ -318,7 +318,7 @@ public class HYRISE extends AbstractPartitioningAlgorithm {
                 }
             }
 
-            int[] mergedPartitionArr = ArrayUtils.toArray(mergedPartition);
+            int[] mergedPartitionArr = ArrayUtils.toArrayInteger(mergedPartition);
 
             int[][] individualPartitions = new int[mergedPartitionIds.size()][];
             int i = 0;
@@ -379,7 +379,7 @@ public class HYRISE extends AbstractPartitioningAlgorithm {
 				return;
 			
 			// 2. evaluate the cost of each valid layout
-			double newCost = costCalculator.getPartitionsCost(ArrayUtils.toArray(partitions));
+			double newCost = costCalculator.getPartitionsCost(ArrayUtils.toArrayList(partitions));
 			if(newCost < minCost){
 				// 3. discard all layouts but the one yielding the lowest cost.
 				int[][] partitionsArr = new int[partitions.size()][];

@@ -53,6 +53,118 @@ public class BenchmarkTables {
 		}
 	}
 
+    /*Begin Debugging Begin*/
+
+    public static Table tpchAll(BenchmarkConfig conf){
+
+        List<Attribute> attributes = new ArrayList<Attribute>();
+
+
+        attributes.add(new Attribute("l_OrderKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("l_PartKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("l_SuppKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("l_Linenumber", AttributeType.Integer()));
+        attributes.add(new Attribute("l_Quantity", AttributeType.Real()));
+        attributes.add(new Attribute("l_ExtendedPrice", AttributeType.Real()));
+        attributes.add(new Attribute("l_Discount", AttributeType.Real()));
+        //attributes.add(new Attribute("l_Tax", AttributeType.Real()));
+        //attributes.add(new Attribute("l_ReturnFlag", AttributeType.Character(1)));
+        //attributes.add(new Attribute("l_LineStatus", AttributeType.Character(1)));
+        attributes.add(new Attribute("l_ShipDate", AttributeType.Date("yyyy-MM-dd")));
+        attributes.add(new Attribute("l_CommitDate", AttributeType.Date("yyyy-MM-dd")));
+        attributes.add(new Attribute("l_ReceiptDate", AttributeType.Date("yyyy-MM-dd")));
+        attributes.add(new Attribute("l_ShipInstruct", AttributeType.Character(25)));
+        attributes.add(new Attribute("l_ShipMode", AttributeType.Character(10)));
+        //attributes.add(new Attribute("l_Comment", AttributeType.CharacterVarying(44)));
+
+        //attributes.add(new Attribute("c_Name", AttributeType.CharacterVarying(25)));
+        //attributes.add(new Attribute("c_Address", AttributeType.CharacterVarying(40)));
+        //attributes.add(new Attribute("c_NationKey", AttributeType.Integer()));
+        attributes.add(new Attribute("c_Phone", AttributeType.Character(15)));
+        attributes.add(new Attribute("c_AcctBal", AttributeType.Real()));
+        attributes.add(new Attribute("c_MktSegment", AttributeType.Character(10)));
+        //attributes.add(new Attribute("c_Comment", AttributeType.CharacterVarying(117)));
+
+
+        //attributes.add(new Attribute("p_PartKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("p_Name", AttributeType.CharacterVarying(55)));
+        //attributes.add(new Attribute("p_Mfgr", AttributeType.Character(25)));
+        attributes.add(new Attribute("p_Brand", AttributeType.Character(10)));
+        attributes.add(new Attribute("p_Type", AttributeType.CharacterVarying(25)));
+        attributes.add(new Attribute("p_Size", AttributeType.Integer()));
+        attributes.add(new Attribute("p_Container", AttributeType.Character(10)));
+        //attributes.add(new Attribute("p_RetialPrice", AttributeType.Real()));
+        //attributes.add(new Attribute("p_Comment", AttributeType.CharacterVarying(23)));
+
+
+
+
+        //attributes.add(new Attribute("s_SuppKey", AttributeType.Integer()));
+        attributes.add(new Attribute("s_Name", AttributeType.Character(25)));
+        attributes.add(new Attribute("s_Address", AttributeType.CharacterVarying(40)));
+        //attributes.add(new Attribute("s_NationKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("s_Phone", AttributeType.Character(15)));
+        //attributes.add(new Attribute("s_AcctBal", AttributeType.Real()));
+        //attributes.add(new Attribute("s_Comment", AttributeType.CharacterVarying(101)));
+
+
+        attributes.add(new Attribute("ps_PartKey", AttributeType.Integer()));
+        attributes.add(new Attribute("ps_SuppKey", AttributeType.Integer()));
+        attributes.add(new Attribute("ps_AvailQty", AttributeType.Integer()));
+        attributes.add(new Attribute("ps_SupplyCost", AttributeType.Real()));
+        //attributes.add(new Attribute("ps_Comment", AttributeType.CharacterVarying(199)));
+
+        //attributes.add(new Attribute("o_OrderKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("o_CustKey", AttributeType.Integer()));
+        attributes.add(new Attribute("o_OrderStatus", AttributeType.Character(1)));
+        //attributes.add(new Attribute("o_TotalPrice", AttributeType.Real()));
+        attributes.add(new Attribute("o_OrderDate", AttributeType.Date("yyyy-MM-dd")));
+        attributes.add(new Attribute("o_OrderPriority", AttributeType.Character(15)));
+        //attributes.add(new Attribute("o_Clerk", AttributeType.Character(15)));
+        attributes.add(new Attribute("o_ShipPriority", AttributeType.Integer()));
+        //attributes.add(new Attribute("o_Comment", AttributeType.CharacterVarying(79)));
+
+        attributes.add(new Attribute("ns_NationKey", AttributeType.Integer()));
+        attributes.add(new Attribute("ns_Name", AttributeType.Character(25)));
+
+        attributes.add(new Attribute("nc_NationKey", AttributeType.Integer()));
+        attributes.add(new Attribute("nc_Name", AttributeType.Character(25)));
+        //attributes.add(new Attribute("ns_RegionKey", AttributeType.Integer()));
+        //attributes.add(new Attribute("ns_Comment", AttributeType.CharacterVarying(152)));
+
+        //attributes.add(new Attribute("rc_RegionKey", AttributeType.Integer()));
+        attributes.add(new Attribute("rc_Name", AttributeType.Character(25)));
+        //attributes.add(new Attribute("rc_Comment", AttributeType.CharacterVarying(152)));
+
+
+        Table t = new Table("tpcall", conf.getTableType(), attributes);
+        t.pk = "l_OrderKey,l_Linenumber";
+
+        List<String> ordered_attrs = Arrays.asList("c_acctbal", "c_mktsegment", "c_phone", "l_commitdate", "l_discount", "l_extendedprice", "l_orderkey", "l_quantity", "l_receiptdate", "l_shipdate", "l_shipinstruct", "l_shipmode", "nc_name", "nc_nationkey", "ns_name", "ns_nationkey", "o_orderdate", "o_orderpriority", "o_orderstatus", "o_shippriority", "p_brand", "p_container", "p_size", "p_type", "ps_availqty", "ps_partkey", "ps_suppkey", "ps_supplycost", "rc_name", "s_address", "s_name");
+
+        for (int i=0; i<attributes.size(); ++i) {
+            int pos = ordered_attrs.indexOf(attributes.get(i).name.toLowerCase());
+            while (i != pos) {
+                Attribute tmp = attributes.get(pos);
+                attributes.set(pos, attributes.get(i));
+                attributes.set(i, tmp);
+                pos = ordered_attrs.indexOf(attributes.get(i).name.toLowerCase());
+            }
+        }
+        for (int i=0; i<attributes.size(); ++i) {
+            System.out.println(attributes.get(i).name);
+        }
+
+
+        t.workload = BenchmarkWorkloads.tpchAll(attributes, conf.getScaleFactor());
+        t.workload.dataFileName = conf.getDataFileDir() + "lineitem.tbl";
+
+
+        System.out.println(t.workload.dataFileName);
+        return t;
+    }
+    /*End Debugging End*/
+
 	public static Table tpchCustomer(BenchmarkConfig conf){
 		Attribute custKey = new Attribute("c_CustKey", AttributeType.Integer());
 		custKey.primaryKey = true;

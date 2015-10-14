@@ -132,6 +132,17 @@ public class AlgorithmRunner {
         runTPC_H_Region();
     }
 
+    /*Begin Debugging Begin*/
+    public void runTPC_H_All() {
+        Table table = BenchmarkTables.partialTable(BenchmarkTables.tpchAll(benchmarkConf), null, querySet);
+        config.setTable(table);
+        //runAlgorithms(config, lineitemCGrpThreshold);
+        runAlgorithms(config, generalCGrpThreshold);
+
+    }
+    /*End Debugging End*/
+
+
     /**
      * Method for running the experiment for TPC-H Customer.
      */
@@ -426,4 +437,21 @@ public class AlgorithmRunner {
 
         return algorithm;
     }
+
+    /*Begin Debugging Begin*/
+    public static void main(String[] args) {
+        String[] queries = {"A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10"};
+        Set<AbstractAlgorithm.Algo> algos_sel = new HashSet<AbstractAlgorithm.Algo>();
+        //AbstractAlgorithm.Algo[] ALL_ALGOS_SEL = {AUTOPART, HILLCLIMB, HYRISE};
+        AbstractAlgorithm.Algo[] ALL_ALGOS_SEL = {TROJAN};
+        for (AbstractAlgorithm.Algo algo : ALL_ALGOS_SEL) {
+            algos_sel.add(algo);
+        }
+        AlgorithmRunner algoRunner = new AlgorithmRunner(algos_sel, 10, queries, new AbstractAlgorithm.HDDAlgorithmConfig(BenchmarkTables.randomTable(1, 1)));
+        algoRunner.runTPC_H_All();
+        String output = AlgorithmResults.exportResults(algoRunner.results);
+
+        System.out.println(output);
+    }
+    /*End Debugging End*/
 }

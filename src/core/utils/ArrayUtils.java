@@ -59,15 +59,31 @@ public class ArrayUtils {
 		}
 		return subArray;
 	}
-	
-	public static int[] toArray(List<Integer> list){
+
+    /* My Java environment does not support this kind of overloading*/
+
+    /*public static int[] toArrayInteger(List<Integer> list){
+        int[] array = new int[list.size()];
+        for(int i=0;i<list.size();i++)
+            array[i] = list.get(i);
+        return array;
+    }
+
+    public static int[][] toArrayList(List<int[]> list){
+        int[][] array = new int[list.size()][];
+        for(int i=0;i<list.size();i++)
+            array[i] = list.get(i);
+        return array;
+    }*/
+
+	public static int[] toArrayInteger(List<Integer> list){
 		int[] array = new int[list.size()];
 		for(int i=0;i<list.size();i++)
 			array[i] = list.get(i);
 		return array;
 	}
 
-    public static int[][] toArray(List<int[]> list){
+    public static int[][] toArrayList(List<int[]> list){
         int[][] array = new int[list.size()][];
         for(int i=0;i<list.size();i++)
             array[i] = list.get(i);

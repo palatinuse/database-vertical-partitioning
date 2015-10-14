@@ -10,6 +10,24 @@ import java.util.List;
 
 public class BenchmarkWorkloads {
 
+    /*Begin Debugging Begin*/
+    public static Workload tpchAll(List<Attribute> attributes, double scaleFactor){
+        Workload w = new Workload(attributes, (long)(scaleFactor * 6000000), "ALL");
+        w.addProjectionQuery("A1", 1, 19, 6, 16, 5, 4, 1, 9);
+        w.addProjectionQuery("A2", 1, 13, 28, 12, 5, 15, 4, 16);
+        w.addProjectionQuery("A3", 1, 4, 5, 7, 9);
+        w.addProjectionQuery("A4", 1, 27, 14, 25, 24);
+        w.addProjectionQuery("A5", 1, 3, 17, 8, 11, 9);
+        w.addProjectionQuery("A6", 1, 23, 22, 20, 26);
+        w.addProjectionQuery("A7", 1, 10, 7, 22, 21, 20, 11, 4);
+        w.addProjectionQuery("A8", 1, 14, 30, 29);
+        w.addProjectionQuery("A9", 1, 3, 14, 8, 30, 18);
+        w.addProjectionQuery("A10", 1, 2, 0);
+
+        return w;
+    }
+    /*End Debuging End*/
+
 	public static Workload tpchCustomer(List<Attribute> attributes, double scaleFactor){
 		Workload w = new Workload(attributes, (long)(scaleFactor * 150000), "CUSTOMER");
 		w.addProjectionQuery("Q3", 1, new int[]{6}, 2.00E-01, 0, 6);
