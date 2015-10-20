@@ -303,11 +303,11 @@ public class BenchmarkWorkloads {
 	public static Workload customWorkload(List<Attribute> attributes, List<Query> queries, long numRows, String tableName){
 		Workload w = new Workload(attributes, numRows, tableName);
 //		Set<Integer> uniqueProjections = new HashSet<Integer>();
-//		for(Query q: allQueries){
+//		for(Query q: allTPCHQueries){
 //			for(int p: q.getProjectedColumns())
 //				uniqueProjections.add(p);
 //		}
-//		for(Query q: allQueries)
+//		for(Query q: allTPCHQueries)
 //			q.setNumAttributes(uniqueProjections.size());
 		w.addProjectionQueries(queries);
 		return w;

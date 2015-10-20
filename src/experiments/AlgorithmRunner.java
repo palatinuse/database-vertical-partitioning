@@ -4,7 +4,6 @@ import core.algo.vertical.*;
 import core.config.DataConfig;
 import db.schema.BenchmarkTables;
 import db.schema.entity.Table;
-import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,9 +17,9 @@ import static core.algo.vertical.AbstractAlgorithm.Algo.*;
  */
 public class AlgorithmRunner {
 
-    public static final String[] allQueries = new String[22];
+    public static final String[] allTPCHQueries = new String[22];
     static {
-        for (int i=1; i<=22; i++) { allQueries[i-1] = "Q" + i;}
+        for (int i=1; i<=22; i++) { allTPCHQueries[i-1] = "Q" + i;}
     };
 
     public String[] querySet;
@@ -112,11 +111,7 @@ public class AlgorithmRunner {
             this.algos = algos;
         }
 
-        if (querySet == null) {
-            this.querySet = allQueries;
-        } else {
-            this.querySet = querySet;
-        }
+        this.querySet = querySet;
     }
 
     /**
@@ -135,10 +130,10 @@ public class AlgorithmRunner {
 
     /*Begin Debugging Begin*/
     public void runTPC_H_All() {
-        Table table = BenchmarkTables.partialTable(BenchmarkTables.tpchAll(benchmarkConf), null, querySet);
+        Table table = BenchmarkTables.tpchAll(benchmarkConf);
         config.setTable(table);
-        //runAlgorithms(config, lineitemCGrpThreshold);
-        runAlgorithms(config, generalCGrpThreshold);
+        runAlgorithms(config, lineitemCGrpThreshold);
+        //runAlgorithms(config, generalCGrpThreshold);
 
     }
     /*End Debugging End*/
