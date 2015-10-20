@@ -4,6 +4,7 @@ import core.algo.vertical.*;
 import core.config.DataConfig;
 import db.schema.BenchmarkTables;
 import db.schema.entity.Table;
+import org.junit.Test;
 
 import java.util.HashSet;
 import java.util.Set;
