@@ -22,7 +22,7 @@ public class Optimal extends AbstractPartitioningAlgorithm {
 
         /***** Remove unreferenced attributes to speed-up the search. *****/
         int[] allQueries = PartitioningUtils.getPartitions(new int[w.queryCount])[0];
-        int[] refAttrs = WorkloadUtils.getReferencedAttributes(w.usageM, allQueries);
+        int[] refAttrs = WorkloadUtils.getReferencedAttributes(w.usageMatrix, allQueries);
         Table reducedTable = BenchmarkTables.partialTable(t, refAttrs, allQueries);
         Workload.SimplifiedWorkload reducedWorkload = reducedTable.workload.getSimplifiedWorkload();
         config.setW(reducedWorkload);

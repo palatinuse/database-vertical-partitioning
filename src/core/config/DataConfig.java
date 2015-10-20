@@ -11,7 +11,6 @@ public class DataConfig {
 	public static double scaleFactor = 0.1;
 	
 	public static TableType tableType = TableType.ColumnGrouped();
-//  public static TableType tableType = TableType.Default();
-	
+
 	public static String delimiter = "\\|";
 }

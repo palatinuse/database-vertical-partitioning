@@ -1,7 +1,7 @@
 package core.metrics;
 
 import core.algo.vertical.AbstractAlgorithm;
-import core.models.CostModel;
+import core.costmodels.CostModel;
 import db.schema.entity.Workload;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.set.hash.TIntHashSet;

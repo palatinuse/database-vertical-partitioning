@@ -36,7 +36,7 @@ public class AutoPart extends AbstractPartitionsAlgorithm {
 	@Override
 	public void doPartition() {
 
-        TIntHashSet unReferenced = WorkloadUtils.getNonReferencedAttributes(w.usageM);
+        TIntHashSet unReferenced = WorkloadUtils.getNonReferencedAttributes(w.usageMatrix);
         HashSet<TIntHashSet> unRefHashSet = new HashSet<TIntHashSet>();
         unRefHashSet.add(unReferenced);
         int unReferencedSize = getOverlappingPartitionsSize(unRefHashSet);
@@ -53,7 +53,7 @@ public class AutoPart extends AbstractPartitionsAlgorithm {
 			TIntHashSet queryExtent = new TIntHashSet(w.attributeCount);
 
 			for (int a = 0; a < w.attributeCount; a++) {
-				if (w.usageM[q][a] == 1) {
+				if (w.usageMatrix[q][a] == 1) {
 					queryExtent.add(a);
 				}
 			}
@@ -309,7 +309,7 @@ public class AutoPart extends AbstractPartitionsAlgorithm {
 			boolean referencesAll = true;
 
 			for (TIntIterator it = fragment.iterator(); it.hasNext(); ) {
-				if (w.usageM[q][it.next()] == 0) {
+				if (w.usageMatrix[q][it.next()] == 0) {
 					referencesAll = false;
 				}
 			}

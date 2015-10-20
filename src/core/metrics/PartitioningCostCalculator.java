@@ -1,7 +1,7 @@
 package core.metrics;
 
 import core.algo.vertical.AbstractAlgorithm;
-import core.models.CostModel;
+import core.costmodels.CostModel;
 import core.utils.PartitioningUtils;
 import db.schema.entity.Workload;
 

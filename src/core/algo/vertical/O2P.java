@@ -85,7 +85,7 @@ public class O2P extends NavatheAlgorithm {
 	public class AttributePruning extends BruteForce{
 		
 		protected void doIterate(){
-			TIntHashSet nonRefAtts = WorkloadUtils.getNonReferencedAttributes(w.usageM);
+			TIntHashSet nonRefAtts = WorkloadUtils.getNonReferencedAttributes(w.usageMatrix);
 			int[] a = new int[ordering.length];
 			int x,y;
 			for(x=0;x<ordering.length;x++){

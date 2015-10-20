@@ -1,7 +1,7 @@
 package core.algo.vertical;
 
-import core.models.CostModel;
-import core.models.HDDCostModel;
+import core.costmodels.CostModel;
+import core.costmodels.HDDCostModel;
 import core.utils.PartitioningUtils;
 import core.utils.TimeUtils.Timer;
 import db.schema.entity.Table;

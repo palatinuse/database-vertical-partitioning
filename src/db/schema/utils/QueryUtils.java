@@ -1,6 +1,7 @@
 package db.schema.utils;
 
 import db.schema.entity.Query;
+import db.schema.entity.RangeQuery;
 import db.schema.entity.Table;
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.list.array.TIntArrayList;
@@ -142,27 +143,42 @@ public class QueryUtils {
 
 		return refPartitions;
 	}
-	
-	public static Query getPartialQuery(Query q, TIntIntHashMap attributeIdx){
-		Query partialQuery = new Query(q.name, q.weight);
-		TIntArrayList partialQueryAttributes = new TIntArrayList();
-		int[] projections = q.getProjections();
-			
-		for(int p: projections)
-			if(attributeIdx==null)
-				partialQueryAttributes.add(p);
-			else
-				partialQueryAttributes.add(attributeIdx.get(p));
-		
-		if(attributeIdx==null)
-			partialQuery.setProjections(q.getNumAttributes(), partialQueryAttributes.toArray());
-		else
-			partialQuery.setProjections(attributeIdx.size(), partialQueryAttributes.toArray());
-		partialQuery.setSelection(q.getRange());
 
-        partialQuery.setSelectivity(q.getSelectivity());
-        partialQuery.setSelectivityColumns(q.getSelectivityColumns().clone());
+    /**
+     * Method for creating a partial query, which is query projecting only a subset of the attributes
+     * projected by a source query.
+     * @param q the source query, to be reduced
+     * @param attributeMapping the mapping of the attribute IDs between the source- and the target queries.
+     * @return the partial query
+     */
+	public static Query getPartialQuery(Query q, TIntIntHashMap attributeMapping){
+
+		Query partialQuery = new Query(q);
+
+        if (attributeMapping != null) {
+
+            TIntArrayList partialQueryAttributes = new TIntArrayList();
+            int[] projections = q.getProjectedColumns();
+
+            for (int p : projections) {
+                partialQueryAttributes.add(attributeMapping.get(p));
+            }
+
+            partialQuery.setProjections(attributeMapping.size(), partialQueryAttributes.toArray());
+        }
 		
 		return partialQuery;
 	}
+
+    /**
+     * Method for creating a partial query, which is query projecting only a subset of the attributes
+     * projected by a source query.
+     * @param q the source query, to be reduced
+     * @param attributeMapping the mapping of the attribute IDs between the source- and the target queries.
+     * @return the partial query
+     */
+    public static RangeQuery getPartialQuery(RangeQuery q, TIntIntHashMap attributeMapping){
+
+        return new RangeQuery(getPartialQuery(q, attributeMapping), q.getRangeCondition());
+    }
 }

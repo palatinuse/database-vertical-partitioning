@@ -1,8 +1,8 @@
 package core.metrics;
 
 import core.algo.vertical.AbstractAlgorithm;
-import core.models.CostModel;
-import core.models.HDDCostModel;
+import core.costmodels.CostModel;
+import core.costmodels.HDDCostModel;
 import core.utils.PartitioningUtils;
 
 /**
@@ -102,7 +102,7 @@ public class HDDPartitioningCostCalculator extends PartitioningCostCalculator {
                 isReferenced[p] = false;
 
                 for (int a : partitions[p]) {
-                    if (w.usageM[q][a] == 1) {
+                    if (w.usageMatrix[q][a] == 1) {
                         isReferenced[p] = true;
                         referencedPartitionsRowSize += partitionRowSize[p];
                         break;

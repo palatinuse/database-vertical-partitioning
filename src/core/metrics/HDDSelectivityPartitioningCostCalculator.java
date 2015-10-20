@@ -1,8 +1,8 @@
 package core.metrics;
 
 import core.algo.vertical.AbstractAlgorithm;
-import core.models.CostModel;
-import core.models.HDDSelectivityCostModel;
+import core.costmodels.CostModel;
+import core.costmodels.HDDSelectivityCostModel;
 import gnu.trove.set.hash.TIntHashSet;
 
 /**
@@ -51,7 +51,7 @@ public class HDDSelectivityPartitioningCostCalculator extends HDDPartitioningCos
                 isReferenced[p] = false;
 
                 for (int a : partitions[p]) {
-                    if (w.usageM[q][a] == 1) {
+                    if (w.usageMatrix[q][a] == 1) {
                         isReferenced[p] = true;
                         referencedPartitionsRowSize += partitionRowSize[p];
 

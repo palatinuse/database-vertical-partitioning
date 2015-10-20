@@ -28,7 +28,7 @@ public class DreamPartitioner extends AbstractPartitionsAlgorithm {
         for (int q = 0; q < w.queryCount; q++) {
             TIntHashSet partition = new TIntHashSet(w.attributeCount);
             for (int a = 0; a < w.attributeCount; a++) {
-                if (w.usageM[q][a] == 1) {
+                if (w.usageMatrix[q][a] == 1) {
                     partition.add(a);
                 }
             }

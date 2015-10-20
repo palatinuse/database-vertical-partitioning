@@ -100,7 +100,7 @@ import java.io.Serializable;
  * Just like java.util.Random, this generator accepts a long seed but doesn't
  * use all of it. java.util.Random uses 48 bits. The Mersenne Twister instead
  * uses 32 bits (int size). So it's best if your seed does not exceed the int
- * range.
+ * rangeCondition.
  * <p>
  * MersenneTwister can be used reliably on JDK version 1.1.5 or above. Earlier
  * Java versions have serious bugs in java.util.Random; only MersenneTwisterFast

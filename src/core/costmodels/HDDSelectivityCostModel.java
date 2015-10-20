@@ -1,4 +1,4 @@
-package core.models;
+package core.costmodels;
 
 import db.schema.entity.Workload;
 

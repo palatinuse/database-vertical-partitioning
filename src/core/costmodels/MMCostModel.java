@@ -1,4 +1,4 @@
-package core.models;
+package core.costmodels;
 
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
@@ -9,7 +9,7 @@ import db.schema.entity.Workload;
  * Cost Model from the HYRISE cost model.
  * 
  *  Note:
- *  1. We consider only partial projections without any selections in the queries.
+ *  1. We consider only partial projectedColumns without any selections in the queries.
  *  2. Each query might access non-contiguous attributes within a partition.
  *  3. The first and last projection (within a partition) could also be merged.
  *  
@@ -40,7 +40,7 @@ public class MMCostModel {
         partition = partitionList.toArray();
     	
     	// attributes referenced by the given query
-    	int[] referencedAttributes = w.usageM[query];
+    	int[] referencedAttributes = w.usageMatrix[query];
     	
     	// mask to denote whether or not an attribute of a partition is referenced (by the given query)
     	int[] accessMask = new int[partition.length];
@@ -147,13 +147,13 @@ public class MMCostModel {
     	// flag to indicate whether it is the first (gap) skip or not
     	boolean firstSkip = true;
     	
-    	// flag to indicate whether or not we can merge the first and the last partial projections
+    	// flag to indicate whether or not we can merge the first and the last partial projectedColumns
     	boolean mergeFirstLast = false;
     	if ((gapWidths[0] + gapWidths[gapWidths.length-1]) < cacheLineWidth)
-    		mergeFirstLast = true;	// first and last partial projections can be merged, and the gap between them cannot be skipped
+    		mergeFirstLast = true;	// first and last partial projectedColumns can be merged, and the gap between them cannot be skipped
     	else {
     		partialProjectionOffset += gapWidths[0];
-    		firstSkip = false; /* since the first and last partial projections cannot be merged,
+    		firstSkip = false; /* since the first and last partial projectedColumns cannot be merged,
     		                     we skip the leftmost gap, so the next one won't be the first (gap) skip */
     	}
 

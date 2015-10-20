@@ -1,7 +1,7 @@
 package core.metrics;
 
 import core.algo.vertical.AbstractAlgorithm;
-import core.models.MMCostModel;
+import core.costmodels.MMCostModel;
 import core.utils.PartitioningUtils;
 
 /**

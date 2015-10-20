@@ -103,7 +103,7 @@ public final class PartitioningProfiler {
             TIntHashSet referencedPartitions = new TIntHashSet(w.attributeCount);
 
             for (int a = 0; a < w.attributeCount; a++) {
-                if (w.usageM[q][a] == 1) {
+                if (w.usageMatrix[q][a] == 1) {
                     referencedPartitions.add(partitioning[a]);
                 }
             }
@@ -113,7 +113,7 @@ public final class PartitioningProfiler {
 
                 for (int a : partitions[p]) {
 
-                    if (w.usageM[q][a] == 0) {
+                    if (w.usageMatrix[q][a] == 0) {
                         redundantBytesRead += w.attributeSizes[a];
                     }
                 }
@@ -171,7 +171,7 @@ public final class PartitioningProfiler {
             TIntHashSet referencedPartitions = new TIntHashSet(w.attributeCount);
 
             for (int a = 0; a < w.attributeCount; a++) {
-                if (w.usageM[q][a] == 1) {
+                if (w.usageMatrix[q][a] == 1) {
                     referencedPartitions.add(partitioning[a]);
                 }
             }
@@ -192,7 +192,7 @@ public final class PartitioningProfiler {
         for (int q = 0; q < w.queryCount; q++) {
 
             for (int a = 0; a < w.attributeCount; a++) {
-                if (w.usageM[q][a] == 1) {
+                if (w.usageMatrix[q][a] == 1) {
                     totalReferencedData += w.attributeSizes[a];
                 }
             }

@@ -36,7 +36,7 @@ public class HillClimb extends AbstractPartitioningAlgorithm {
 	
 	@Override
 	public void doPartition() {
-//		int[][] allGroups = getSetOfGroups(usageM);
+//		int[][] allGroups = getSetOfGroups(usageMatrix);
 //		
 //		for (int[] group : allGroups) {			
 //			costTable.put(Arrays.toString(group), cm.getPartitionsCost(group));
@@ -119,10 +119,10 @@ public class HillClimb extends AbstractPartitioningAlgorithm {
 		return sum;
 	}
 
-//	private int[][] getSetOfGroups(int[][] usageM) {
+//	private int[][] getSetOfGroups(int[][] usageMatrix) {
 //		Map<Integer, List<Integer>> partitionAttributes = new HashMap<Integer,List<Integer>>();
 //		List<Integer> attributes = new ArrayList<Integer>();
-//		for(int i = 0; i < usageM[0].length; i++)
+//		for(int i = 0; i < usageMatrix[0].length; i++)
 //			attributes.add(i);
 ////		System.out.println("attrSize: "+attributes.size());
 //		List<List<Integer>> psetattr = powerSetIter(attributes);

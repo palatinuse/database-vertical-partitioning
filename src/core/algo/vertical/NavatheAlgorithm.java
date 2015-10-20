@@ -46,8 +46,8 @@ public class NavatheAlgorithm extends AbstractPartitioningAlgorithm {
 	 * get affinity matrix
 	 */
 	protected int[][] getAffinityMatrix(){
-		int[][] affinityMatrix = new int[w.usageM[0].length][w.usageM[0].length];
-		for(int i=0;i<w.usageM[0].length;i++){
+		int[][] affinityMatrix = new int[w.usageMatrix[0].length][w.usageMatrix[0].length];
+		for(int i=0;i<w.usageMatrix[0].length;i++){
 			for(int j=0;j<=i;j++){
 				int affinity = getCommonUsage(i, j);
 				affinityMatrix[i][j] = affinity;
@@ -59,8 +59,8 @@ public class NavatheAlgorithm extends AbstractPartitioningAlgorithm {
 	
 	private int getCommonUsage(int a1, int a2){
 		int counter = 0;
-		for(int i=0;i<w.usageM.length;i++){
-			if(w.usageM[i][a1]==1 && w.usageM[i][a2]==1)
+		for(int i=0;i<w.usageMatrix.length;i++){
+			if(w.usageMatrix[i][a1]==1 && w.usageMatrix[i][a2]==1)
 				counter++;
 		}
 		return counter;

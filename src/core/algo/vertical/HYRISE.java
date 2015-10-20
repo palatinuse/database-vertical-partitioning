@@ -35,11 +35,11 @@ public class HYRISE extends AbstractPartitioningAlgorithm {
 	
 	public void doPartition() {
 
-        /* HACK: if usageM is all 1s, than no need to execute the algorithm: */
+        /* HACK: if usageMatrix is all 1s, than no need to execute the algorithm: */
         int sum = 0;
         for (int q = 0; q < w.queryCount; q++) {
             for (int a = 0; a < w.attributeCount; a++) {
-                sum += w.usageM[q][a];
+                sum += w.usageMatrix[q][a];
             }
         }
 
@@ -48,14 +48,14 @@ public class HYRISE extends AbstractPartitioningAlgorithm {
             return;
         }
 
-		//ArrayUtils.printArray(usageM, "Usage Matrix", "Query", null);
+		//ArrayUtils.printArray(usageMatrix, "Usage Matrix", "Query", null);
 		
 		// generate candidate partitions (all possible primary partitions)
-		int[][] candidatePartitions = generateCandidates(w.usageM);
+		int[][] candidatePartitions = generateCandidates(w.usageMatrix);
 		//ArrayUtils.printArray(candidatePartitions, "Number of primary partitions:"+candidatePartitions.length, "Partition ", null);
 		
 		// generate the affinity matrix and METIS input file 
-		int[][] matrix = affinityMatrix(candidatePartitions, w.usageM);
+		int[][] matrix = affinityMatrix(candidatePartitions, w.usageMatrix);
 		//ArrayUtils.printArray(matrix, "Partition Affinity Matrix Size: "+matrix.length, null, null);
 		writeGraphFile(graphFileName, matrix);
 		

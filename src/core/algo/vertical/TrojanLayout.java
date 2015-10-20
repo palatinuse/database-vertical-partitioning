@@ -2,7 +2,7 @@ package core.algo.vertical;
 
 import core.metrics.PartitioningCostCalculator;
 import core.metrics.PartitioningProfiler;
-import core.models.CostModel;
+import core.costmodels.CostModel;
 import core.utils.PartitioningUtils;
 import db.schema.BenchmarkTables;
 import db.schema.entity.*;
@@ -77,7 +77,7 @@ public class TrojanLayout extends AbstractPartitioningAlgorithm {
             }
 
             /* Attributes referenced by the given query group. */
-            int[] refAttrs = WorkloadUtils.getReferencedAttributes(w.usageM, queryGroup);
+            int[] refAttrs = WorkloadUtils.getReferencedAttributes(w.usageMatrix, queryGroup);
 
             /* The partitioning of the referenced subset of attributes for the given query group. */
             int[] subsetPartitioning;
@@ -152,21 +152,24 @@ public class TrojanLayout extends AbstractPartitioningAlgorithm {
 	 *    - calculate the number of rows touched (using the index) over all queries
 	 *    - pick the attribute which allows us to touch minimum number of rows 
 	 * 
-	 * @param w
-	 * @param replicaQueries
+	 * @param w the workload
+	 * @param replicaQueries the queries routed to a given replica
 	 */
 	private void markIndex(Workload w, int[] replicaQueries) {
 		List<Query> allQueries = w.queries;
 
-		// get total cardinality of range attributes
+		// get total cardinality of rangeCondition attributes
 		Map<Attribute, Long> attributeCardinality = new HashMap<Attribute, Long>();
 		for (int q : replicaQueries) {
-			Attribute a = allQueries.get(q).getRange().a;
-			long count = w.getNumberOfRows() - allQueries.get(q).getRange().count();
-			if (!attributeCardinality.containsKey(a))
-				attributeCardinality.put(a, count);
-			else
-				attributeCardinality.put(a, attributeCardinality.get(a) + count);
+            if (allQueries.get(q) instanceof RangeQuery) {
+                Range r = ((RangeQuery) allQueries.get(q)).getRangeCondition();
+                Attribute a = r.a;
+                long count = w.getNumberOfRows() - r.count();
+                if (!attributeCardinality.containsKey(a))
+                    attributeCardinality.put(a, count);
+                else
+                    attributeCardinality.put(a, attributeCardinality.get(a) + count);
+            }
 		}
 
 		// get the attribute with minimum cardinality
@@ -181,24 +184,23 @@ public class TrojanLayout extends AbstractPartitioningAlgorithm {
 
 		// mark the index flag for ranges having minimum cardinality attribute
 		for (int q : replicaQueries) {
-			Range r = allQueries.get(q).getRange();
-			if (r.a.equals(minCardinalityAttribute))
-				r.isIndexed = true;
-			else
-				r.isIndexed = false;
+			if (allQueries.get(q) instanceof RangeQuery) {
+                Range r = ((RangeQuery)allQueries.get(q)).getRangeCondition();
+                r.isIndexed = r.a.equals(minCardinalityAttribute);
+            }
 		}
 	}
 
 	protected void rotateUsageM() {
 		originalW = (SimplifiedWorkload) w.clone();
 
-		w.usageM = PartitioningUtils.transposeMatrix(w.usageM);
-		w.usageM = PartitioningUtils.getNonNullVectors(w.usageM);
+		w.usageMatrix = PartitioningUtils.transposeMatrix(w.usageMatrix);
+		w.usageMatrix = PartitioningUtils.getNonNullVectors(w.usageMatrix);
 		w.attributeSizes = w.queryWeights;
 
-		w.queryCount = w.usageM.length;
+		w.queryCount = w.usageMatrix.length;
 		try {
-			w.attributeCount = w.usageM[0].length;
+			w.attributeCount = w.usageMatrix[0].length;
 		} catch (Exception ex) {
 			w.attributeCount = 0;
 		}
@@ -585,8 +587,8 @@ public class TrojanLayout extends AbstractPartitioningAlgorithm {
 
 		protected double getQueryFootprint(int q) {
 			double F = 0.0;
-			for (int i = 0; i < w.usageM[q].length; i++)
-				if (w.usageM[q][i] > 0)
+			for (int i = 0; i < w.usageMatrix[q].length; i++)
+				if (w.usageMatrix[q][i] > 0)
 					F += getAttributeBytes(i, q, null);
 			return F;
 		}
@@ -595,9 +597,9 @@ public class TrojanLayout extends AbstractPartitioningAlgorithm {
 			double C_A = 0.0;
 			for (int i = 0; i < w.queryCount; i++) {
 				if (x == 1)
-					C_A += queryFootprint[i] * w.usageM[i][attribute];
+					C_A += queryFootprint[i] * w.usageMatrix[i][attribute];
 				else
-					C_A += queryFootprint[i] * (1 - w.usageM[i][attribute]);
+					C_A += queryFootprint[i] * (1 - w.usageMatrix[i][attribute]);
 			}
 			if(C_A == totalQueryFootprint)
 				return maxAttributeCost;		// hack
@@ -610,13 +612,13 @@ public class TrojanLayout extends AbstractPartitioningAlgorithm {
 			for (int i = 0; i < w.queryCount; i++) {
 				int usage1, usage2;
 				if (x == 1)
-					usage1 = w.usageM[i][attribute1];
+					usage1 = w.usageMatrix[i][attribute1];
 				else
-					usage1 = 1 - w.usageM[i][attribute1];
+					usage1 = 1 - w.usageMatrix[i][attribute1];
 				if (y == 1)
-					usage2 = w.usageM[i][attribute2];
+					usage2 = w.usageMatrix[i][attribute2];
 				else
-					usage2 = 1 - w.usageM[i][attribute2];
+					usage2 = 1 - w.usageMatrix[i][attribute2];
 				C_A += queryFootprint[i] * usage1 * usage2;
 			}
 			if(C_A == totalQueryFootprint)

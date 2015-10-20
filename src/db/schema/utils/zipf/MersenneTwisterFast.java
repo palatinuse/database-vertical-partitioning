@@ -99,7 +99,7 @@ import java.util.Random;
  * Just like java.util.Random, this generator accepts a long seed but doesn't
  * use all of it. java.util.Random uses 48 bits. The Mersenne Twister instead
  * uses 32 bits (int size). So it's best if your seed does not exceed the int
- * range.
+ * rangeCondition.
  * <p>
  * MersenneTwister can be used reliably on JDK version 1.1.5 or above. Earlier
  * Java versions have serious bugs in java.util.Random; only MersenneTwisterFast
@@ -781,7 +781,7 @@ public class MersenneTwisterFast implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns a random double in the half-open range from [0.0,1.0). Thus 0.0
+	 * Returns a random double in the half-open rangeCondition from [0.0,1.0). Thus 0.0
 	 * is a valid result but 1.0 is not.
 	 */
 	public final double nextDouble() {
@@ -980,7 +980,7 @@ public class MersenneTwisterFast implements Serializable, Cloneable {
 	}
 
 	/**
-	 * Returns a random float in the half-open range from [0.0f,1.0f). Thus 0.0f
+	 * Returns a random float in the half-open rangeCondition from [0.0f,1.0f). Thus 0.0f
 	 * is a valid result but 1.0f is not.
 	 */
 	public final float nextFloat() {

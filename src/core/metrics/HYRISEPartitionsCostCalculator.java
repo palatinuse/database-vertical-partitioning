@@ -1,7 +1,7 @@
 package core.metrics;
 
 import core.algo.vertical.AbstractAlgorithm;
-import core.models.MMCostModel;
+import core.costmodels.MMCostModel;
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.map.hash.TIntObjectHashMap;
@@ -50,7 +50,7 @@ public class HYRISEPartitionsCostCalculator extends PartitionsCostCalculator {
             TIntArrayList queryAccessSet = new TIntArrayList(w.attributeCount);
 
             for (int a = 0; a < w.attributeCount; a++) {
-                if (w.usageM[q][a] == 1) {
+                if (w.usageMatrix[q][a] == 1) {
                     queryAccessSet.add(a);
                 }
             }

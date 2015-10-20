@@ -15,14 +15,14 @@ public class WorkloadUtils {
 	public static String[] getQueryNames(Workload w){
 		String[] names = new String[w.queries.size()];
 		for(int i=0;i<names.length;i++)
-			names[i] = w.queries.get(i).name;
+			names[i] = w.queries.get(i).getName();
 		return names;
 	}
 	
 	public static int[] getQueryWeights(Workload w){
 		int[] weights = new int[w.queries.size()];
 		for(int i=0;i<weights.length;i++)
-			weights[i] = w.queries.get(i).weight;
+			weights[i] = w.queries.get(i).getWeight();
 		return weights;
 	}
 
@@ -57,7 +57,7 @@ public class WorkloadUtils {
         
         for(String name: names) {    
             for (Query q : queries) {
-                if (name.equals(q.name)) {
+                if (name.equals(q.getName())) {
                     subset.add(QueryUtils.getPartialQuery(q, attributeIdx));
                 }
             }
@@ -108,11 +108,5 @@ public class WorkloadUtils {
 		}
 		
 		return newUsageM;
-	}
-	
-	public static Workload getProjectionOnlyWorkload(Workload w){
-		for(Query q: w.queries)
-			q.setSelection(null);
-		return w;
 	}
 }

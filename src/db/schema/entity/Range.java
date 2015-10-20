@@ -3,6 +3,7 @@ package db.schema.entity;
 import db.schema.types.AttributeType;
 import db.schema.utils.Pair;
 
+// TODO check
 public class Range {
 
 	public Attribute a;

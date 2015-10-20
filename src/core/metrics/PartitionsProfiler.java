@@ -91,7 +91,7 @@ public final class PartitionsProfiler {
                 for (TIntIterator ait = partitioningMap.get(pit.next()).iterator(); ait.hasNext();) {
                     int a = ait.next();
 
-                    if (w.usageM[q][a] == 0) {
+                    if (w.usageMatrix[q][a] == 0) {
                         redundantBytesRead += w.attributeSizes[a];
                     }
                 }

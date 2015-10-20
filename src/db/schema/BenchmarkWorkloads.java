@@ -30,37 +30,37 @@ public class BenchmarkWorkloads {
 
 	public static Workload tpchCustomer(List<Attribute> attributes, double scaleFactor){
 		Workload w = new Workload(attributes, (long)(scaleFactor * 150000), "CUSTOMER");
-		w.addProjectionQuery("Q3", 1, new int[]{6}, 2.00E-01, 0, 6);
+		w.addProjectionQueryWithFiltering("Q3", 1, new int[]{6}, 2.00E-01, 0, 6);
 		w.addProjectionQuery("Q5", 1, 0, 3);
 		w.addProjectionQuery("Q7", 1, 0, 3);
 		w.addProjectionQuery("Q8", 1, 0, 3);
 		w.addProjectionQuery("Q10", 1, 0, 1, 2, 3, 4, 5, 7);
 		w.addProjectionQuery("Q13", 1, 0);
 		w.addProjectionQuery("Q18", 1, 0, 1);
-		w.addProjectionQuery("Q22", 1, new int[]{4, 5}, 2.55E-01, 0, 4, 5);
+		w.addProjectionQueryWithFiltering("Q22", 1, new int[]{4, 5}, 2.55E-01, 0, 4, 5);
 		
 		return w;
 	}
 	
 	public static Workload tpchLineitem(List<Attribute> attributes, double scaleFactor){
 		Workload w = new Workload(attributes, (long)(scaleFactor * 6000000), "LINEITEM");
-		w.addProjectionQuery("Q1", 1, new int[]{10}, 9.90E-01, 4,5,6,7,8,9,10);
-		w.addProjectionQuery("Q3", 1, new int[]{10}, 5.35E-01, 0,5,6,10);
+		w.addProjectionQueryWithFiltering("Q1", 1, new int[]{10}, 9.90E-01, 4, 5, 6, 7, 8, 9, 10);
+		w.addProjectionQueryWithFiltering("Q3", 1, new int[]{10}, 5.35E-01, 0, 5, 6, 10);
 		//w.addProjectionQuery("Q4", 1, 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15); // the SELECT * would be optimized away
-        w.addProjectionQuery("Q4", 1, new int[]{11,12}, 6.32E-01, 0,11,12);
+        w.addProjectionQueryWithFiltering("Q4", 1, new int[]{11, 12}, 6.32E-01, 0, 11, 12);
 		w.addProjectionQuery("Q5", 1, 0,2,5,6);
-		w.addProjectionQuery("Q6", 1, new int[]{4,6,10}, 1.98E-02, 4,5,6,10);
-		w.addProjectionQuery("Q7", 1, new int[]{10}, 3.04E-01, 0,2,5,6,10);
+		w.addProjectionQueryWithFiltering("Q6", 1, new int[]{4, 6, 10}, 1.98E-02, 4, 5, 6, 10);
+		w.addProjectionQueryWithFiltering("Q7", 1, new int[]{10}, 3.04E-01, 0, 2, 5, 6, 10);
 		w.addProjectionQuery("Q8", 1, 0,1,2,5,6);
 		w.addProjectionQuery("Q9", 1, 0,1,2,4,5,6);
-		w.addProjectionQuery("Q10", 1, new int[]{8}, 2.47E-01, 0,5,6,8);
-		w.addProjectionQuery("Q12", 1, new int[]{10,11,12,14}, 5.18E-03, 0,10,11,12,14);
-		w.addProjectionQuery("Q14", 1, new int[]{10}, 1.25E-02, 1,5,6,10);
-		w.addProjectionQuery("Q15", 1, new int[]{10}, 3.83E-02, 2,5,6,10);
+		w.addProjectionQueryWithFiltering("Q10", 1, new int[]{8}, 2.47E-01, 0, 5, 6, 8);
+		w.addProjectionQueryWithFiltering("Q12", 1, new int[]{10, 11, 12, 14}, 5.18E-03, 0, 10, 11, 12, 14);
+		w.addProjectionQueryWithFiltering("Q14", 1, new int[]{10}, 1.25E-02, 1, 5, 6, 10);
+		w.addProjectionQueryWithFiltering("Q15", 1, new int[]{10}, 3.83E-02, 2, 5, 6, 10);
 		w.addProjectionQuery("Q17", 1, 1,4,5);
 		w.addProjectionQuery("Q18", 1, 0,4);
-		w.addProjectionQuery("Q19", 1, new int[]{4,13,14}, 2.00E-02, 1,4,5,6,13,14);
-		w.addProjectionQuery("Q20", 1, new int[]{10}, 1.52E-01, 1,2,4,10);
+		w.addProjectionQueryWithFiltering("Q19", 1, new int[]{4, 13, 14}, 2.00E-02, 1, 4, 5, 6, 13, 14);
+		w.addProjectionQueryWithFiltering("Q20", 1, new int[]{10}, 1.52E-01, 1, 2, 4, 10);
 		//w.addProjectionQuery("Q21", 1, 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);  // the SELECT * would be optimized away
         w.addProjectionQuery("Q21", 1, 0,2,11,12);
 		
@@ -70,14 +70,14 @@ public class BenchmarkWorkloads {
     public static Workload tpchPart(List<Attribute> attributes, double scaleFactor) {
         Workload w = new Workload(attributes, (long)(scaleFactor * 200000), "PART");
         
-        w.addProjectionQuery("Q2", 1, new int[]{4,5}, 3.93E-03, 0,2,4,5);
-        w.addProjectionQuery("Q8", 1, new int[]{4}, 6.68E-03, 0,4);
-        w.addProjectionQuery("Q9", 1, new int[]{1}, 5.47E-02, 0,1);
+        w.addProjectionQueryWithFiltering("Q2", 1, new int[]{4, 5}, 3.93E-03, 0, 2, 4, 5);
+        w.addProjectionQueryWithFiltering("Q8", 1, new int[]{4}, 6.68E-03, 0, 4);
+        w.addProjectionQueryWithFiltering("Q9", 1, new int[]{1}, 5.47E-02, 0, 1);
         w.addProjectionQuery("Q14", 1, 0,4);
-        w.addProjectionQuery("Q16", 1, new int[]{3,4,5}, 1.49E-01, 0,3,4,5);
-        w.addProjectionQuery("Q17", 1, new int[]{3,6}, 1.00E-03, 0,3,6);
-        w.addProjectionQuery("Q19", 1, new int[]{3,5,6}, 2.37E-03, 0,3,5,6);
-        w.addProjectionQuery("Q20", 1, new int[]{1}, 1.09E-02, 0,1);
+        w.addProjectionQueryWithFiltering("Q16", 1, new int[]{3, 4, 5}, 1.49E-01, 0, 3, 4, 5);
+        w.addProjectionQueryWithFiltering("Q17", 1, new int[]{3, 6}, 1.00E-03, 0, 3, 6);
+        w.addProjectionQueryWithFiltering("Q19", 1, new int[]{3, 5, 6}, 2.37E-03, 0, 3, 5, 6);
+        w.addProjectionQueryWithFiltering("Q20", 1, new int[]{1}, 1.09E-02, 0, 1);
 
         return w;
     }
@@ -92,7 +92,7 @@ public class BenchmarkWorkloads {
         w.addProjectionQuery("Q9", 1, 0,3);
         w.addProjectionQuery("Q11", 1, 0,3);
         w.addProjectionQuery("Q15", 1, 0,1,2,4);
-        w.addProjectionQuery("Q16", 1, new int[]{6}, 5.60E-04, 0,6);
+        w.addProjectionQueryWithFiltering("Q16", 1, new int[]{6}, 5.60E-04, 0, 6);
         w.addProjectionQuery("Q20", 1, 0,1,2,3);
         w.addProjectionQuery("Q21", 1, 0,1,3);
 
@@ -105,8 +105,8 @@ public class BenchmarkWorkloads {
         w.addProjectionQuery("Q2", 1, 0,1,3);
         w.addProjectionQuery("Q9", 1, 0,1,3);
         w.addProjectionQuery("Q11", 1, 0,1,2,3);
-        w.addProjectionQuery("Q16", 1, new int[]{1}, 9.99E-01, 0,1);
-        w.addProjectionQuery("Q20", 1, new int[]{0}, 1.09E-02, 0,1,2);
+        w.addProjectionQueryWithFiltering("Q16", 1, new int[]{1}, 9.99E-01, 0, 1);
+        w.addProjectionQueryWithFiltering("Q20", 1, new int[]{0}, 1.09E-02, 0, 1, 2);
 
         return w;
     }
@@ -114,17 +114,17 @@ public class BenchmarkWorkloads {
     public static Workload tpchOrders(List<Attribute> attributes, double scaleFactor) {
         Workload w = new Workload(attributes, (long)(scaleFactor * 1500000), "ORDERS");
 
-        w.addProjectionQuery("Q3", 1, new int[]{4}, 4.90E-01, 0,1,4,7);
-        w.addProjectionQuery("Q4", 1, new int[]{4}, 3.75E-02, 0,4,5);
-        w.addProjectionQuery("Q5", 1, new int[]{4}, 1.52E-01, 0,1,4);
+        w.addProjectionQueryWithFiltering("Q3", 1, new int[]{4}, 4.90E-01, 0, 1, 4, 7);
+        w.addProjectionQueryWithFiltering("Q4", 1, new int[]{4}, 3.75E-02, 0, 4, 5);
+        w.addProjectionQueryWithFiltering("Q5", 1, new int[]{4}, 1.52E-01, 0, 1, 4);
         w.addProjectionQuery("Q7", 1, 0,1);
-        w.addProjectionQuery("Q8", 1, new int[]{4}, 3.04E-01, 0,1,4);
+        w.addProjectionQueryWithFiltering("Q8", 1, new int[]{4}, 3.04E-01, 0, 1, 4);
         w.addProjectionQuery("Q9", 1, 0,4);
-        w.addProjectionQuery("Q10", 1, new int[]{4}, 3.82E-02, 0,1,4);
+        w.addProjectionQueryWithFiltering("Q10", 1, new int[]{4}, 3.82E-02, 0, 1, 4);
         w.addProjectionQuery("Q12", 1, 0,5);
-        w.addProjectionQuery("Q13", 1, new int[]{8}, 9.89E-01, 0,1,8);
-        w.addProjectionQuery("Q18", 1, new int[]{0}, 5.00E-06, 0,1,3,4);
-        w.addProjectionQuery("Q21", 1, new int[]{2}, 4.87E-01, 0,2);
+        w.addProjectionQueryWithFiltering("Q13", 1, new int[]{8}, 9.89E-01, 0, 1, 8);
+        w.addProjectionQueryWithFiltering("Q18", 1, new int[]{0}, 5.00E-06, 0, 1, 3, 4);
+        w.addProjectionQueryWithFiltering("Q21", 1, new int[]{2}, 4.87E-01, 0, 2);
         w.addProjectionQuery("Q22", 1, 1);
 
         return w;
@@ -135,13 +135,13 @@ public class BenchmarkWorkloads {
 
         w.addProjectionQuery("Q2", 1, 0,1,2);
         w.addProjectionQuery("Q5", 1, 0,1,2);
-        w.addProjectionQuery("Q7", 1, new int[]{1}, 0.04, 0,1);
+        w.addProjectionQueryWithFiltering("Q7", 1, new int[]{1}, 0.04, 0, 1);
         w.addProjectionQuery("Q8", 1, 0,1,2);
         w.addProjectionQuery("Q9", 1, 0,1);
         w.addProjectionQuery("Q10", 1, 0,1);
-        w.addProjectionQuery("Q11", 1, new int[]{1}, 0.04, 0,1);
-        w.addProjectionQuery("Q20", 1, new int[]{1}, 0.04, 0,1);
-        w.addProjectionQuery("Q21", 1, new int[]{1}, 0.04, 0,1);
+        w.addProjectionQueryWithFiltering("Q11", 1, new int[]{1}, 0.04, 0, 1);
+        w.addProjectionQueryWithFiltering("Q20", 1, new int[]{1}, 0.04, 0, 1);
+        w.addProjectionQueryWithFiltering("Q21", 1, new int[]{1}, 0.04, 0, 1);
 
         return w;
     }
@@ -149,9 +149,9 @@ public class BenchmarkWorkloads {
     public static Workload tpchRegion(List<Attribute> attributes) {
         Workload w = new Workload(attributes, 5, "REGION");
 
-        w.addProjectionQuery("Q2", 1, new int[]{1}, 0.2, 0,1);
-        w.addProjectionQuery("Q5", 1, new int[]{1}, 0.2, 0,1);
-        w.addProjectionQuery("Q8", 1, new int[]{1}, 0.2, 0,1);
+        w.addProjectionQueryWithFiltering("Q2", 1, new int[]{1}, 0.2, 0, 1);
+        w.addProjectionQueryWithFiltering("Q5", 1, new int[]{1}, 0.2, 0, 1);
+        w.addProjectionQueryWithFiltering("Q8", 1, new int[]{1}, 0.2, 0, 1);
 
         return w;
     }
@@ -269,14 +269,14 @@ public class BenchmarkWorkloads {
 		Range superHotSongs = new Range(veryHotSongs, 0, 1229);
 		
 		
-		w.addSelectionQuery("Q1", 1, chicago, 1,2,3);
-		w.addSelectionQuery("Q2", 1, illinois, 0,3);
-		w.addSelectionQuery("Q3", 1, year1975, 0,6,7);
-		w.addSelectionQuery("Q4", 1, year1974_75, 1,4,7);
-		w.addSelectionQuery("Q5", 1, year1970_80, 5,7);
-		w.addSelectionQuery("Q6", 1, superHotSongs, 0,1,6);
-		w.addSelectionQuery("Q7", 1, veryHotSongs, 6,7);
-		w.addSelectionQuery("Q8", 1, hotSongs, 3,6);
+		w.addRangeQuery("Q1", 1, chicago, 1, 2, 3);
+		w.addRangeQuery("Q2", 1, illinois, 0, 3);
+		w.addRangeQuery("Q3", 1, year1975, 0, 6, 7);
+		w.addRangeQuery("Q4", 1, year1974_75, 1, 4, 7);
+		w.addRangeQuery("Q5", 1, year1970_80, 5, 7);
+		w.addRangeQuery("Q6", 1, superHotSongs, 0, 1, 6);
+		w.addRangeQuery("Q7", 1, veryHotSongs, 6, 7);
+		w.addRangeQuery("Q8", 1, hotSongs, 3, 6);
 		
 		return w;
 	}
@@ -304,7 +304,7 @@ public class BenchmarkWorkloads {
 		Workload w = new Workload(attributes, numRows, tableName);
 //		Set<Integer> uniqueProjections = new HashSet<Integer>();
 //		for(Query q: allQueries){
-//			for(int p: q.getProjections())
+//			for(int p: q.getProjectedColumns())
 //				uniqueProjections.add(p);
 //		}
 //		for(Query q: allQueries)
