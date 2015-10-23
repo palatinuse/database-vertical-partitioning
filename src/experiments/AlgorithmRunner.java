@@ -130,10 +130,19 @@ public class AlgorithmRunner {
 
     /*Begin Debugging Begin*/
     public void runTPC_H_All() {
+
+        RUN_TROJAN = false;
+        RUN_OPTIMAL = false;
+        RUN_NAVATHE = false;
+
         Table table = BenchmarkTables.tpchAll(benchmarkConf);
         config.setTable(table);
         runAlgorithms(config, lineitemCGrpThreshold);
         //runAlgorithms(config, generalCGrpThreshold);
+
+        RUN_TROJAN = true;
+        RUN_OPTIMAL = true;
+        RUN_NAVATHE = true;
 
     }
     /*End Debugging End*/
