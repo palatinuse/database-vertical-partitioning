@@ -59,3 +59,9 @@ The second mapping, _best solutions_ is a bit more tricky. If we have a vertical
 * Create a new instance of `experiments.AlgorthmRunner` using its default constructor setting up to run all VP algorithms, the whole TPC-H benchmark using scale factor 10, and using an HDD cost model.
 * Call the `experiments.AlgorthmRunner.runTPC_H_Tables()` method to get the vertical partitionings of all TPC-H tables, for each VP algorithm.
 * Print the resulting partitionings calling the `experiments.AlgorithmResults.exportResults()` method, passing in the results attribute of the `experiments.AlgorthmRunner` instance.
+
+```
+AlgorithmRunner algorithmRunner = new AlgorithmRunner();
+algorithmRunner.runTPC_H_All();
+System.out.println(AlgorithmResults.exportResults(algorithmRunner.results));
+```
